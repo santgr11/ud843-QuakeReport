@@ -6,6 +6,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 /**
@@ -46,7 +47,7 @@ public final class QueryUtils {
         // is formatted, a JSONException exception object will be thrown.
         // Catch the exception so the app doesn't crash, and print the error message to the logs.
         try {
-            
+
             // build up a list of Earthquake objects with the corresponding data.
             JSONObject baseJsonResponse = new JSONObject(SAMPLE_JSON_RESPONSE);
             JSONArray earthquakeArray = baseJsonResponse.getJSONArray("features");
@@ -56,7 +57,7 @@ public final class QueryUtils {
                 JSONObject properties = currentEarthquake.getJSONObject("properties");
                 double currentMag = properties.getDouble("mag");
                 String currentLocation = properties.getString("place");
-                String currentDate = properties.getString("time");
+                long currentDate = properties.getLong("time");
 
                 earthquakes.add(new Earthquake(currentMag, currentLocation, currentDate));
             }
